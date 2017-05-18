@@ -21,6 +21,13 @@ class MainPage(webapp2.RequestHandler):
         self.response.write('Hello, World!')
 
 
+class HelpPage(webapp2.RequestHandler):
+    def get(self):
+        self.response.headers['Content-Type'] = 'text/plain'
+        self.response.write('Help, I\'m inside this green robot!')
+
+
 app = webapp2.WSGIApplication([
     ('/', MainPage),
+    ('/help', HelpPage),
 ], debug=True)
