@@ -15,6 +15,7 @@
 import webapp2
 import json
 
+
 class Need:
     id = 0
     content = ""
@@ -34,7 +35,7 @@ needs_list = []
 class AllPage(webapp2.RequestHandler):
     def get(self):
         self.response.headers['Content-Type'] = 'application/json'
-        self.response.out.write('[{"id": 123, "content": "content", "rating": 2, "color": 16711935}]')
+        self.response.out.write(json.dumps([ob.__dict__ for ob in needs_list]))
 
 
 class HelpPage(webapp2.RequestHandler):
@@ -51,7 +52,7 @@ class AddPage(webapp2.RequestHandler):
         needs_list.append(need)
 
         self.response.headers['Content-Type'] = 'text/plain'
-        self.response.write(str(need))
+        self.response.write(need.id)
 
 
 class LikePage(webapp2.RequestHandler):
