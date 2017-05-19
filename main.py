@@ -16,7 +16,7 @@ import webapp2
 from webapp2_extras import json
 
 
-class MainPage(webapp2.RequestHandler):
+class AllPage(webapp2.RequestHandler):
     def get(self):
         self.response.headers['Content-Type'] = 'application/json'
         # response = {
@@ -35,7 +35,7 @@ class HelpPage(webapp2.RequestHandler):
 
 
 app = webapp2.WSGIApplication([
-    ('/', MainPage),
+    ('/all', AllPage),
     ('/help', HelpPage),
     # ('/add', AddPage),
     # ('/like', LikePage)
