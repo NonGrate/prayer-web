@@ -78,6 +78,6 @@ app = webapp2.WSGIApplication([
     ('/all', AllPage),
     ('/help', HelpPage),
     ('/add', AddPage),
-    ('/like', LikePage)
+    ('/like', LikePage),
     ('/clear', ClearPage)
 ], debug=True)
