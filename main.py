@@ -13,12 +13,19 @@
 # limitations under the License.
 
 import webapp2
+from webapp2_extras import json
 
 
 class MainPage(webapp2.RequestHandler):
     def get(self):
         self.response.headers['Content-Type'] = 'application/json'
-        self.response.write('[{"id": 123, "content": "content", "rating": 2, "color": 16711935}]')
+        # response = {
+        #     'id': 123,
+        #     'content': "content",
+        #     'rating': 2,
+        #     'color': 16711935
+        # }
+        self.response.out.write('[{"id": 123, "content": "content", "rating": 2, "color": 16711935}]')
 
 
 class HelpPage(webapp2.RequestHandler):
