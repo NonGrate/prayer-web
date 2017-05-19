@@ -13,12 +13,19 @@
 # limitations under the License.
 
 import webapp2
+import json
 
 class Need:
     id = 0
     content = ""
     rating = 0
     color = 0
+
+    def __init__(self, string):
+        self.__dict__ = json.loads(string)
+
+    def __str__(self):
+        return "id: {}; content: {}; rating: {}; color: {}".format(self.id, self.content, self.rating, self.color)
 
 
 needs_list = []
@@ -38,16 +45,13 @@ class HelpPage(webapp2.RequestHandler):
 
 class AddPage(webapp2.RequestHandler):
     def post(self):
-        need = Need()
-        need.rating = 0
+        need = Need(self.request.body)
         need.id = len(needs_list)
-        need.content = ""
-        need.color = ""
 
-        # needs_list.append(need)
+        needs_list.append(need)
 
         self.response.headers['Content-Type'] = 'text/plain'
-        self.response.write(self.request)
+        self.response.write(str(need))
 
 
 class LikePage(webapp2.RequestHandler):
