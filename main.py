@@ -17,8 +17,8 @@ import webapp2
 
 class MainPage(webapp2.RequestHandler):
     def get(self):
-        self.response.headers['Content-Type'] = 'text/plain'
-        self.response.write('Hello, World!')
+        self.response.headers['Content-Type'] = 'application/json'
+        self.response.write('[{"id": 123, "content": "content", "rating": 2, "color": 16711935}]')
 
 
 class HelpPage(webapp2.RequestHandler):
@@ -30,4 +30,6 @@ class HelpPage(webapp2.RequestHandler):
 app = webapp2.WSGIApplication([
     ('/', MainPage),
     ('/help', HelpPage),
+    # ('/add', AddPage),
+    # ('/like', LikePage)
 ], debug=True)
