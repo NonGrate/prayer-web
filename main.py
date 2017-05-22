@@ -14,28 +14,16 @@
 
 import webapp2
 import json
-
-
-class Need:
-    id = 0
-    content = ""
-    rating = 0
-    color = 0
-
-    def __init__(self, string):
-        self.__dict__ = json.loads(string)
-
-    def __str__(self):
-        return "id: {}; content: {}; rating: {}; color: {}".format(self.id, self.content, self.rating, self.color)
-
-
-needs_list = []
+import database
+from popos import Need
 
 
 class AllPage(webapp2.RequestHandler):
     def get(self):
+        needs = database.get_all()
+
         self.response.headers['Content-Type'] = 'application/json'
-        self.response.out.write(json.dumps([ob.__dict__ for ob in needs_list]))
+        self.response.out.write(json.dumps([ob.__dict__ for ob in needs]))
 
 
 class HelpPage(webapp2.RequestHandler):
@@ -47,34 +35,25 @@ class HelpPage(webapp2.RequestHandler):
 class AddPage(webapp2.RequestHandler):
     def post(self):
         need = Need(self.request.body)
-        need.id = len(needs_list)
-
-        needs_list.append(need)
+        new_id = database.add_need(need.content, need.color)
 
         self.response.headers['Content-Type'] = 'text/plain'
-        self.response.write(need.id)
+        self.response.write(new_id)
 
 
 class LikePage(webapp2.RequestHandler):
     def post(self):
-        need_id = self.response.get('id')
-        self.like_need(need_id)
-        self.response.headers['Content-Type'] = 'text/plain'
-        self.response.write('Help, I\'m inside this green robot!')
+        path_url = self.request.path_url
+        need_id = path_url.split("/")[-1]
+        new_rating = database.like_need(need_id)
 
-    @staticmethod
-    def like_need(need_id):
-        for index, need in needs_list:
-            if need.id == need_id:
-                need.rating += 1
-                needs_list[index] = need
-                break
+        self.response.headers['Content-Type'] = 'text/plain'
+        self.response.write(new_rating)
 
 
 class ClearPage(webapp2.RequestHandler):
     def post(self):
-        global needs_list
-        needs_list = []
+        database.clear()
         self.response.headers['Content-type'] = 'text/plain'
         self.response.write(self.request)
 
@@ -83,6 +62,6 @@ app = webapp2.WSGIApplication([
     ('/all', AllPage),
     ('/help', HelpPage),
     ('/add', AddPage),
-    ('/like', LikePage),
+    ('/like/.*', LikePage),
     ('/clear', ClearPage)
 ], debug=True)
