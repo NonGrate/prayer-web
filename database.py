@@ -5,7 +5,7 @@ sqlite = sqlite3.connect('needs.db')
 
 create = sqlite.cursor()
 create.execute("CREATE TABLE IF NOT EXISTS needs (content TEXT, rating INTEGER, color INTEGER)")
-sqlite.close()
+create.close()
 
 
 def get_all():
