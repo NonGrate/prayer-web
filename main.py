@@ -23,7 +23,7 @@ class AllPage(webapp2.RequestHandler):
         needs = database.get_all()
 
         self.response.headers['Content-Type'] = 'application/json'
-        self.response.out.write(json.dumps([ob.__dict__ for ob in needs]))
+        self.response.out.write(json.dumps(needs))
 
 
 class HelpPage(webapp2.RequestHandler):

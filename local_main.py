@@ -19,7 +19,7 @@ import database
 def all():
     needs = database.get_all()
 
-    print (json.dumps([ob.__dict__ for ob in needs]))
+    print (json.dumps(needs))
 
 
 def add(content, color):
