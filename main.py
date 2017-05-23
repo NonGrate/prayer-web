@@ -16,6 +16,7 @@ import webapp2
 import logging
 import json
 import ndb_database as database
+from popos import NeedEncoder
 
 
 class AllPage(webapp2.RequestHandler):
@@ -23,7 +24,7 @@ class AllPage(webapp2.RequestHandler):
         needs = database.get_all()
 
         self.response.headers['Content-Type'] = 'application/json'
-        self.response.out.write(map(lambda need: need.json(), needs))
+        self.response.out.write(json.dumps(needs, cls=NeedEncoder))
 
 
 class HelpPage(webapp2.RequestHandler):
@@ -34,8 +35,8 @@ class HelpPage(webapp2.RequestHandler):
 
 class AddPage(webapp2.RequestHandler):
     def post(self):
-        post = self.request.POST
-        new_id = database.add_need(content=post.get('content'), color=int(post.get('color')))
+        body = json.loads(self.request.body)
+        new_id = database.add_need(content=body.get('content'), color=int(body.get('color')))
 
         self.response.headers['Content-Type'] = 'text/plain'
         self.response.write(new_id)
