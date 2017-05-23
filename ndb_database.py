@@ -7,8 +7,7 @@ def get_all():
 
 
 def get_by_id(need_id):
-    query = Need.query(Need.id == need_id).get()
-    return query
+    return Need.get_by_id(need_id)
 
 
 def add_need(content, color):
@@ -23,7 +22,7 @@ def like_need(need_id):
     need.rating += 1
     need.put()
 
-    return get_by_id(need_id).id()
+    return get_by_id(need_id).rating
 
 
 def clear():

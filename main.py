@@ -45,7 +45,7 @@ class LikePage(webapp2.RequestHandler):
     def post(self):
         path_url = self.request.path_url
         need_id = path_url.split("/")[-1]
-        new_rating = database.like_need(need_id)
+        new_rating = database.like_need(int(need_id))
 
         self.response.headers['Content-Type'] = 'text/plain'
         self.response.write(new_rating)
