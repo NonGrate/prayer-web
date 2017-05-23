@@ -13,8 +13,13 @@
 # limitations under the License.
 
 import webapp2
+import logging
+import dev_appserver
 import json
-import database
+
+dev_appserver.fix_sys_path()
+
+import ndb_database as database
 from popos import Need
 
 
@@ -58,6 +63,12 @@ class ClearPage(webapp2.RequestHandler):
         self.response.write(self.request)
 
 
+def handle_500(request, response, exception):
+    logging.exception(exception)
+    response.write('A server error occurred!')
+    response.set_status(500)
+
+
 app = webapp2.WSGIApplication([
     ('/all', AllPage),
     ('/help', HelpPage),
@@ -65,3 +76,5 @@ app = webapp2.WSGIApplication([
     ('/like/.*', LikePage),
     ('/clear', ClearPage)
 ], debug=True)
+
+app.error_handlers[500] = handle_500

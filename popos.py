@@ -1,14 +1,13 @@
-import json
+from google.appengine.ext import ndb
 
 
-class Need:
-    id = 0
-    content = ""
-    rating = 0
-    color = 0
-
-    def __init__(self, string):
-        self.__dict__ = json.loads(string)
+class Need(ndb.Model):
+    id = ndb.IntegerProperty(indexed=True)
+    content = ndb.StringProperty(indexed=False)
+    rating = ndb.IntegerProperty
+    color = ndb.IntegerProperty
+    date = ndb.DateTimeProperty(auto_now_add=True)
 
     def __str__(self):
-        return "id: {}; content: {}; rating: {}; color: {}".format(self.id, self.content, self.rating, self.color)
+        return "id: {}; content: {}; rating: {}; color: {}; date: {}".format(self.id, self.content, self.rating,
+                                                                             self.color, self.date)
