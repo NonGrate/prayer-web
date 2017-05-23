@@ -1,23 +1,29 @@
-# from popos import Need
+from popos import Need
 
 
 def get_all():
-    # query = Need.query().order(-Need.date).fetch()
-    return []
+    query = Need.query().order(-Need.date).fetch()
+    return query
 
 
 def get_by_id(need_id):
-    # query = Need.query(Need.id == need_id).get()
-    #
-    return 0, "content", 1, 123
+    query = Need.query(Need.id == need_id).get()
+    return query
 
 
 def add_need(content, color):
-    return 1
+    need = Need(content=content, color=color, rating=0)
+    key = need.put()
+
+    return key.id()
 
 
 def like_need(need_id):
-    return 1
+    need = get_by_id(need_id)
+    need.rating += 1
+    need.put()
+
+    return get_by_id(need_id).id()
 
 
 def clear():
