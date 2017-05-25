@@ -26,4 +26,4 @@ def like_need(need_id):
 
 
 def clear():
-    return
+    return False

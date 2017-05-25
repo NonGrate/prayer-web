@@ -14,49 +14,15 @@
 
 import webapp2
 import logging
-import json
-import ndb_database as database
-from popos import NeedEncoder
-
-
-class AllPage(webapp2.RequestHandler):
-    def get(self):
-        needs = database.get_all()
-
-        self.response.headers['Content-Type'] = 'application/json'
-        self.response.out.write(json.dumps(needs, cls=NeedEncoder))
+import need_handlers
+import user_handlers
+import selection_handlers
 
 
 class HelpPage(webapp2.RequestHandler):
     def get(self):
         self.response.headers['Content-Type'] = 'text/plain'
         self.response.write('Help, I\'m inside this green robot!')
-
-
-class AddPage(webapp2.RequestHandler):
-    def post(self):
-        body = json.loads(self.request.body)
-        new_id = database.add_need(content=body.get('content'), color=int(body.get('color')))
-
-        self.response.headers['Content-Type'] = 'text/plain'
-        self.response.write(new_id)
-
-
-class LikePage(webapp2.RequestHandler):
-    def post(self):
-        path_url = self.request.path_url
-        need_id = path_url.split("/")[-1]
-        new_rating = database.like_need(int(need_id))
-
-        self.response.headers['Content-Type'] = 'text/plain'
-        self.response.write(new_rating)
-
-
-class ClearPage(webapp2.RequestHandler):
-    def post(self):
-        database.clear()
-        self.response.headers['Content-type'] = 'text/plain'
-        self.response.write(self.request)
 
 
 def handle_500(request, response, exception):
@@ -66,11 +32,24 @@ def handle_500(request, response, exception):
 
 
 app = webapp2.WSGIApplication([
-    ('/all', AllPage),
     ('/help', HelpPage),
-    ('/add', AddPage),
-    ('/like/.*', LikePage),
-    ('/clear', ClearPage)
+    # needs
+    ('/need/all', need_handlers.All),
+    ('/need/.*', need_handlers.ById),
+    ('/need/add', need_handlers.Add),
+    ('/need/like/.*', need_handlers.Like),
+    ('/need/clear', need_handlers.Clear),
+    # users
+    ('/user/all', user_handlers.All),
+    ('/user/.*', user_handlers.ById),
+    ('/user/add', user_handlers.Add),
+    ('/user/clear', user_handlers.Clear),
+    # selections
+    ('/selection/by_user/.*', selection_handlers.ByUser),
+    ('/selection/by_need/.*', selection_handlers.ByNeed),
+    ('/selection/add/', selection_handlers.Add),
+    ('/selection/remove', selection_handlers.Remove),
+    ('/selection/clear', selection_handlers.Clear),
 ], debug=True)
 
 app.error_handlers[500] = handle_500
