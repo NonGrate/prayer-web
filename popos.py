@@ -69,10 +69,10 @@ def encode_selection(obj):
 class JsonEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, Need):
-            encode_need(obj)
+            return encode_need(obj)
         elif isinstance(obj, User):
-            encode_user(obj)
+            return encode_user(obj)
         elif isinstance(obj, Selection):
-            encode_selection(obj)
+            return encode_selection(obj)
         else:
             return json.JSONEncoder.default(self, obj)
