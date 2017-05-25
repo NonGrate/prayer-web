@@ -35,19 +35,19 @@ app = webapp2.WSGIApplication([
     ('/help', HelpPage),
     # needs
     ('/need/all', need_handlers.All),
-    ('/need/.*', need_handlers.ById),
+    ('/need/(\d+)', need_handlers.ById),
     ('/need/add', need_handlers.Add),
     ('/need/like/.*', need_handlers.Like),
     ('/need/clear', need_handlers.Clear),
     # users
     ('/user/all', user_handlers.All),
-    ('/user/.*', user_handlers.ById),
+    ('/user/(\d+)', user_handlers.ById),
     ('/user/add', user_handlers.Add),
     ('/user/clear', user_handlers.Clear),
     # selections
-    ('/selection/by_user/.*', selection_handlers.ByUser),
-    ('/selection/by_need/.*', selection_handlers.ByNeed),
-    ('/selection/add/', selection_handlers.Add),
+    ('/selection/by_user/(\d+)', selection_handlers.ByUser),
+    ('/selection/by_need/(\d+)', selection_handlers.ByNeed),
+    ('/selection/add', selection_handlers.Add),
     ('/selection/remove', selection_handlers.Remove),
     ('/selection/clear', selection_handlers.Clear),
 ], debug=True)

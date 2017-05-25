@@ -5,9 +5,7 @@ import json
 
 
 class ByUser(webapp2.RequestHandler):
-    def get(self):
-        path_url = self.request.path_url
-        user_id = path_url.split("/")[-1]
+    def get(self, user_id):
         needs = database.get_by_user(int(user_id))
 
         self.response.headers['Content-Type'] = 'application/json'
@@ -15,9 +13,7 @@ class ByUser(webapp2.RequestHandler):
 
 
 class ByNeed(webapp2.RequestHandler):
-    def get(self):
-        path_url = self.request.path_url
-        need_id = path_url.split("/")[-1]
+    def get(self, need_id):
         needs = database.get_by_need(int(need_id))
 
         self.response.headers['Content-Type'] = 'application/json'

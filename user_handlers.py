@@ -13,9 +13,7 @@ class All(webapp2.RequestHandler):
 
 
 class ById(webapp2.RequestHandler):
-    def get(self):
-        path_url = self.request.path_url
-        user_id = path_url.split("/")[-1]
+    def get(self, user_id):
         users = database.get_by_id(int(user_id))
 
         self.response.headers['Content-Type'] = 'application/json'
