@@ -12,11 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import webapp2
 import logging
-import need_handlers
-import user_handlers
-import selection_handlers
+import webapp2
+from handlers import selection_handlers
+from handlers import need_handlers
+from handlers import user_handlers
 
 
 class HelpPage(webapp2.RequestHandler):
@@ -37,12 +37,15 @@ app = webapp2.WSGIApplication([
     ('/need/all', need_handlers.All),
     ('/need/(\d+)', need_handlers.ById),
     ('/need/add', need_handlers.Add),
-    ('/need/like/.*', need_handlers.Like),
+    ('/need/like/(\d+)', need_handlers.Like),
+    ('/need/close/(\d+)', need_handlers.Close),
+    ('/need/remove/(\d+)', need_handlers.Remove),
     ('/need/clear', need_handlers.Clear),
     # users
     ('/user/all', user_handlers.All),
     ('/user/(\d+)', user_handlers.ById),
     ('/user/add', user_handlers.Add),
+    ('/user/remove/(\d+)', user_handlers.ById),
     ('/user/clear', user_handlers.Clear),
     # selections
     ('/selection/by_user/(\d+)', selection_handlers.ByUser),

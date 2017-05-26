@@ -16,6 +16,10 @@ class Need(ndb.Model):
         return json.dumps(self, cls=JsonEncoder)
 
 
+class ClosedNeed(Need):
+    pass
+
+
 class User(ndb.Model):
     name = ndb.StringProperty()
     date = ndb.DateTimeProperty(auto_now=True)
@@ -69,6 +73,8 @@ def encode_selection(obj):
 class JsonEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, Need):
+            return encode_need(obj)
+        elif isinstance(obj, ClosedNeed):
             return encode_need(obj)
         elif isinstance(obj, User):
             return encode_user(obj)

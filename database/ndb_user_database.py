@@ -17,5 +17,12 @@ def add_user(name):
     return key.id()
 
 
+def remove_user(user_id):
+    user = get_by_id(user_id)
+    user.key().delete()
+
+    return True
+
+
 def clear():
     return False

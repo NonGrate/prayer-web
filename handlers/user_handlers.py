@@ -1,7 +1,9 @@
-import webapp2
-import ndb_user_database as database
-from popos import JsonEncoder
 import json
+
+import webapp2
+
+from database import ndb_user_database as database
+from popos import JsonEncoder
 
 
 class All(webapp2.RequestHandler):
@@ -27,6 +29,14 @@ class Add(webapp2.RequestHandler):
 
         self.response.headers['Content-Type'] = 'text/plain'
         self.response.write(new_id)
+
+
+class Remove(webapp2.RequestHandler):
+    def get(self, user_id):
+        success = database.remove_user(int(user_id))
+
+        self.response.headers['Content-Type'] = 'text/plain'
+        self.response.write(success)
 
 
 class Clear(webapp2.RequestHandler):

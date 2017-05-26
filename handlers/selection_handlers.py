@@ -1,7 +1,9 @@
-import webapp2
-import ndb_selection_database as database
-from popos import JsonEncoder
 import json
+
+import webapp2
+
+from database import ndb_selection_database as database
+from popos import JsonEncoder
 
 
 class ByUser(webapp2.RequestHandler):

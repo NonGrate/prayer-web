@@ -1,4 +1,5 @@
 from popos import Need
+from popos import ClosedNeed
 
 
 def get_all():
@@ -23,6 +24,20 @@ def like_need(need_id):
     need.put()
 
     return get_by_id(need_id).rating
+
+
+def close_need(need_id):
+    need = get_by_id(need_id)
+    closed_need = ClosedNeed(need)
+    closed_need.put()
+    need.key().delete()
+
+
+def remove_need(need_id):
+    need = get_by_id(need_id)
+    need.key().delete()
+
+    return True
 
 
 def clear():
