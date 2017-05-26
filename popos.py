@@ -45,7 +45,7 @@ def encode_need(obj):
         "content": obj.content,
         "rating": obj.rating,
         "color": obj.color,
-        "timestamp": obj.date.strftime('%s')
+        "timestamp": int(obj.date.strftime('%s'))
     }
 
 
@@ -53,7 +53,7 @@ def encode_user(obj):
     return {
         "id": obj.key.id(),
         "name": obj.name,
-        "timestamp": obj.date.strftime('%s')
+        "timestamp": int(obj.date.strftime('%s'))
     }
 
 
@@ -62,7 +62,7 @@ def encode_selection(obj):
         "id": obj.key.id(),
         "need_id": obj.need_id,
         "user_id": obj.user_id,
-        "timestamp": obj.date.strftime('%s')
+        "timestamp": int(obj.date.strftime('%s'))
     }
 
 
