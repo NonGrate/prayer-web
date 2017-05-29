@@ -24,11 +24,12 @@ class ById(webapp2.RequestHandler):
 
 class Add(webapp2.RequestHandler):
     def post(self):
+        print(self.request.body)
         body = json.loads(self.request.body)
         new_id = database.add_need(content=body.get('content'), color=int(body.get('color')))
 
         self.response.headers['Content-Type'] = 'text/plain'
-        self.response.write({"id": new_id})
+        self.response.write({"id": int(new_id)})
 
 
 class Like(webapp2.RequestHandler):
@@ -44,7 +45,7 @@ class Close(webapp2.RequestHandler):
         new_need_id = database.close_need(int(need_id))
 
         self.response.headers['Content-Type'] = 'text/plain'
-        self.response.write({"id": new_need_id})
+        self.response.write({"id": int(new_need_id)})
 
 
 class Remove(webapp2.RequestHandler):
