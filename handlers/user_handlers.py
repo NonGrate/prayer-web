@@ -28,7 +28,7 @@ class Add(webapp2.RequestHandler):
         new_id = database.add_user(name=body.get('name'))
 
         self.response.headers['Content-Type'] = 'text/plain'
-        self.response.write({"id": int(new_id)})
+        self.response.write(json.dumps({"id": new_id}))
 
 
 class Remove(webapp2.RequestHandler):

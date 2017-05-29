@@ -27,7 +27,7 @@ class Revert(webapp2.RequestHandler):
         new_need_id = database.revert_need(int(need_id))
 
         self.response.headers['Content-Type'] = 'text/plain'
-        self.response.write({"id": int(new_need_id)})
+        self.response.write(json.dumps({"id": new_need_id}))
 
 
 class Remove(webapp2.RequestHandler):
