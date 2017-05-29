@@ -28,23 +28,23 @@ class Add(webapp2.RequestHandler):
         new_id = database.add_need(content=body.get('content'), color=int(body.get('color')))
 
         self.response.headers['Content-Type'] = 'text/plain'
-        self.response.write(new_id)
+        self.response.write({"id": new_id})
 
 
 class Like(webapp2.RequestHandler):
     def get(self, need_id):
-        new_rating = database.like_need(int(need_id))
+        need = database.like_need(int(need_id))
 
         self.response.headers['Content-Type'] = 'text/plain'
-        self.response.write(new_rating)
+        self.response.write(json.dumps(need, cls=JsonEncoder))
 
 
 class Close(webapp2.RequestHandler):
     def get(self, need_id):
-        database.close_need(int(need_id))
+        new_need_id = database.close_need(int(need_id))
 
         self.response.headers['Content-Type'] = 'text/plain'
-        self.response.write(need_id)
+        self.response.write({"id": new_need_id})
 
 
 class Remove(webapp2.RequestHandler):
@@ -52,11 +52,13 @@ class Remove(webapp2.RequestHandler):
         success = database.remove_need(int(need_id))
 
         self.response.headers['Content-Type'] = 'text/plain'
-        self.response.write(success)
+        self.abort(304)
+        # self.response.write(success)
 
 
 class Clear(webapp2.RequestHandler):
     def post(self):
         success = database.clear()
         self.response.headers['Content-type'] = 'text/plain'
-        self.response.write(success)
+        self.abort(304)
+        # self.response.write(success)

@@ -23,14 +23,16 @@ def like_need(need_id):
     need.rating += 1
     need.put()
 
-    return get_by_id(need_id).rating
+    return get_by_id(need_id)
 
 
 def close_need(need_id):
     need = get_by_id(need_id)
     closed_need = ClosedNeed(need)
-    closed_need.put()
+    key = closed_need.put()
     need.key().delete()
+
+    return key.id()
 
 
 def remove_need(need_id):

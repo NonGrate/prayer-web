@@ -14,8 +14,10 @@ def get_by_id(need_id):
 def revert_need(need_id):
     closed_need = get_by_id(need_id)
     need = Need(closed_need)
-    need.put()
+    key = need.put()
     closed_need.key().delete()
+
+    return key.id()
 
 
 def remove_need(need_id):

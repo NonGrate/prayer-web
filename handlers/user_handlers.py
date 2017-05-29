@@ -28,7 +28,7 @@ class Add(webapp2.RequestHandler):
         new_id = database.add_user(name=body.get('name'))
 
         self.response.headers['Content-Type'] = 'text/plain'
-        self.response.write(new_id)
+        self.response.write({"id": new_id})
 
 
 class Remove(webapp2.RequestHandler):
@@ -36,11 +36,13 @@ class Remove(webapp2.RequestHandler):
         success = database.remove_user(int(user_id))
 
         self.response.headers['Content-Type'] = 'text/plain'
-        self.response.write(success)
+        self.abort(304)
+        # self.response.write(success)
 
 
 class Clear(webapp2.RequestHandler):
     def post(self):
         success = database.clear()
         self.response.headers['Content-type'] = 'text/plain'
-        self.response.write(success)
+        self.abort(304)
+        # self.response.write(success)
