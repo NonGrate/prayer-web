@@ -16,6 +16,7 @@ import logging
 import webapp2
 from handlers import selection_handlers
 from handlers import need_handlers
+from handlers import closed_need_handlers
 from handlers import user_handlers
 
 
