@@ -41,6 +41,12 @@ app = webapp2.WSGIApplication([
     ('/need/close/(\d+)', need_handlers.Close),
     ('/need/remove/(\d+)', need_handlers.Remove),
     ('/need/clear', need_handlers.Clear),
+    # closed needs
+    ('/need/closed/all', closed_need_handlers.All),
+    ('/need/closed/(\d+)', closed_need_handlers.ById),
+    ('/need/closed/revert/(\d+)', closed_need_handlers.Revert),
+    ('/need/closed/remove/(\d+)', closed_need_handlers.Remove),
+    ('/need/closed/clear', closed_need_handlers.Clear),
     # users
     ('/user/all', user_handlers.All),
     ('/user/(\d+)', user_handlers.ById),
