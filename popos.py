@@ -9,7 +9,8 @@ class Need(ndb.Model):
     date = ndb.DateTimeProperty(auto_now=True)
 
     def __str__(self):
-        return "id: {}; content: {}; rating: {}; color: {}; date: {}".format(self.key.id(), self.content, self.rating,
+        return "id: {}; content: {}; rating: {}; color: {}; date: {}".format(self.key.id(),
+                                                                             self.content.encode('utf-8'), self.rating,
                                                                              self.color, self.date)
 
     def json(self):
