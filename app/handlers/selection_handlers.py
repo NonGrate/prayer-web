@@ -1,6 +1,6 @@
 from flask import jsonify
 
-from database import flask_selection_database as database
+from app.database import flask_selection_database as database
 
 
 def selection_by_user(user_id):

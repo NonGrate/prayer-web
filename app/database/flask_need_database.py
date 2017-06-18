@@ -1,5 +1,5 @@
-from popos import Need
-from popos import ClosedNeed
+from app.popos import Need
+from app.popos import ClosedNeed
 
 
 def get_all():

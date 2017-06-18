@@ -1,4 +1,4 @@
-from popos import Selection
+from app.popos import Selection
 
 
 def get_by_user(user_id):

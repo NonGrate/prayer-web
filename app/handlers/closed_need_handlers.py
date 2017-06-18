@@ -1,6 +1,6 @@
 from flask import jsonify
 
-from database import flask_closed_need_database as database
+from app.database import flask_closed_need_database as database
 
 
 def closed_all():

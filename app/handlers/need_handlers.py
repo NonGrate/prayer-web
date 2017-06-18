@@ -1,10 +1,11 @@
 from flask import jsonify
 
-from database import flask_need_database as database
+from app.database import flask_need_database as database
 
 
 def need_all():
     needs = database.get_all()
+    print(needs)
     return jsonify(needs)
 
 
@@ -35,4 +36,4 @@ def need_remove(need_id):
 
 def need_clear():
     success = database.clear()
-    return success, 304
+    return jsonify(success), 304

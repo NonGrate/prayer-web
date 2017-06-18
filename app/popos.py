@@ -1,4 +1,5 @@
-import json
+from flask import json
+from flask import jsonify
 
 
 class Need():
@@ -12,11 +13,6 @@ class Need():
         return "id: {}; content: {}; rating: {}; color: {}; date: {}".format(self.id,
                                                                              self.content.encode('utf-8'), self.rating,
                                                                              self.color, self.date)
-
-    def json(self):
-        return json.dumps(self, cls=JsonEncoder)
-
-
 class ClosedNeed(Need):
     pass
 
@@ -29,9 +25,6 @@ class User():
     def __str__(self):
         return "id: {}; name: {}".format(self.id, self.name)
 
-    def json(self):
-        return json.dumps(self, cls=JsonEncoder)
-
 
 class Selection():
     id = 0
@@ -41,9 +34,6 @@ class Selection():
 
     def __str__(self):
         return "id: {}; need_id: {}; user_id: {}".format(self.id, self.need_id, self.user_id)
-
-    def json(self):
-        return json.dumps(self, cls=JsonEncoder)
 
 
 def encode_need(obj):
@@ -84,4 +74,4 @@ class JsonEncoder(json.JSONEncoder):
         elif isinstance(obj, Selection):
             return encode_selection(obj)
         else:
-            return json.JSONEncoder.default(self, obj)
+            return json.dumps(obj)
