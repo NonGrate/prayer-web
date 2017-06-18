@@ -14,11 +14,11 @@
 
 import webtest
 
-import main
+import app.app.prayer.main
 
 
 def test_get():
-    app = webtest.TestApp(main.app)
+    app = webtest.TestApp(app.app.prayer.main.app)
 
     response = app.get('/')
 
