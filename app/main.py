@@ -1,13 +1,13 @@
 from flask import Flask
-from popos import JsonEncoder
+from app.popos import JsonEncoder
 
 app = Flask(__name__)
 app.json_encoder = JsonEncoder
 
-from handlers import user_handlers
-from handlers import need_handlers
-from handlers import selection_handlers
-from handlers import closed_need_handlers
+from app.handlers import user_handlers
+from app.handlers import need_handlers
+from app.handlers import selection_handlers
+from app.handlers import closed_need_handlers
 
 @app.route('/')
 def main():
