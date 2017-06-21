@@ -5,7 +5,6 @@ from app.database import flask_need_database as database
 
 def need_all():
     needs = database.get_all()
-    print(needs)
     return jsonify(needs)
 
 
@@ -14,8 +13,8 @@ def need_by_id(need_id):
     return jsonify(needs)
 
 
-def need_add(need):
-    new_id = database.add_need(content=need.content, color=need.color)
+def need_add():
+    new_id = database.add_need("abv", 123)
     return jsonify({"id": new_id})
 
 
